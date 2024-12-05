@@ -16,6 +16,7 @@ import { DialogModule } from '../../dialog/dialog.module';
 import { DialogComponent } from '../../dialog/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogData } from '../../models/dialogData';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -73,10 +74,13 @@ export class LoginComponent {
       // move below validation to auth service
       if( user_details != null || user_details != ''){
         if (user_details.password === this.loginForm.value.password) {
+          this.authService.isLoggedInSubject.next(user_details)
           setTimeout(() => {
+
             this.loading = false;
+            
             // Navigate to dashboard after successful login
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/predictionForm']);
           }, 1500);
         }
         else {

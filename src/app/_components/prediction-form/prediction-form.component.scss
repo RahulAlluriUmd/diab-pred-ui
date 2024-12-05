@@ -1,0 +1,124 @@
+/* src/app/prediction/prediction-form.component.scss */
+.prediction-container {
+    padding: 24px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+  
+  .prediction-card {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+  
+    mat-card-header {
+      margin-bottom: 24px;
+      
+      mat-card-title {
+        font-size: 24px;
+        color: #2c3e50;
+      }
+      
+      mat-card-subtitle {
+        font-size: 16px;
+        color: #7f8c8d;
+      }
+    }
+  }
+  
+  .prediction-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .button-row {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-top: 16px;
+  
+    button {
+      min-width: 120px;
+    }
+  }
+  
+  .results-section {
+    margin-top: 32px;
+    padding-top: 24px;
+  
+    h3 {
+      color: #2c3e50;
+      margin-bottom: 16px;
+    }
+  }
+  
+  .result-card {
+    border-radius: 8px;
+    overflow: hidden;
+    
+    &.high {
+      background-color: #fee2e2;
+      .result-header { background-color: #ef4444; }
+    }
+    
+    &.medium {
+      background-color: #fef3c7;
+      .result-header { background-color: #f59e0b; }
+    }
+    
+    &.low {
+      background-color: #dcfce7;
+      .result-header { background-color: #22c55e; }
+    }
+  
+    .result-header {
+      padding: 16px;
+      color: white;
+      font-weight: 500;
+    }
+  
+    .result-content {
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+  
+    .result-footer {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #4b5563;
+      background-color: rgba(255, 255, 255, 0.5);
+  
+      mat-icon {
+        font-size: 18px;
+        height: 18px;
+        width: 18px;
+      }
+    }
+  }
+  
+  mat-spinner {
+    display: inline-block;
+    margin-right: 8px;
+  }
+  
+  mat-hint {
+    font-size: 12px;
+  }

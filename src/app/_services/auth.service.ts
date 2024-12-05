@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 const authAPI = ''
 
@@ -13,7 +13,14 @@ const httpOptions = {
 })
 export class AuthService {
 
-  constructor(private _client: HttpClient) { }
+  constructor(private _client: HttpClient) { 
+    
+  }
+
+  public isLoggedInSubject = new BehaviorSubject<any>(null);
+  isLoggedIn$: Observable<any> = this.isLoggedInSubject.asObservable();
+
+  
 
   login(username: string, password: string): Observable<any> {
     return this._client.post(
@@ -42,6 +49,10 @@ export class AuthService {
     return this._client.post(authAPI + 'signout', { }, httpOptions);
   }
 
+  removeItem(key: any) {
+    localStorage.removeItem(key)
+  }
+
   setItem(user: any){
     localStorage.setItem(user.email, JSON.stringify(user))
   }
@@ -51,6 +62,7 @@ export class AuthService {
   }
 
   public isLoggedIn(): boolean {
+    // this.user_subject.asObservable()
     const user = window.sessionStorage.getItem('USER_KEY');
     if (user) {
       return true;

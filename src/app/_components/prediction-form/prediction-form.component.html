@@ -1,0 +1,143 @@
+<!-- src/app/prediction/prediction-form.component.html -->
+<div class="prediction-container">
+    <mat-card class="prediction-card">
+      <mat-card-header>
+        <mat-card-title>Diabetes Risk Assessment</mat-card-title>
+        <mat-card-subtitle>Enter your health metrics for diabetes risk prediction</mat-card-subtitle>
+      </mat-card-header>
+  
+      <mat-card-content>
+        <form [formGroup]="predictionForm" (ngSubmit)="onSubmit()" class="prediction-form">
+          <div class="form-row">
+            <!-- Age -->
+            <mat-form-field appearance="outline">
+              <mat-label>Age</mat-label>
+              <input matInput type="number" formControlName="age" placeholder="Enter your age">
+              <mat-error *ngIf="predictionForm.get('age')?.hasError('required')">
+                Age is required
+              </mat-error>
+              <mat-error *ngIf="predictionForm.get('age')?.hasError('min') || predictionForm.get('age')?.hasError('max')">
+                Please enter a valid age
+              </mat-error>
+            </mat-form-field>
+  
+            <!-- Gender -->
+            <mat-form-field appearance="outline">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender">
+                <mat-option value="male">Male</mat-option>
+                <mat-option value="female">Female</mat-option>
+                <mat-option value="other">Other</mat-option>
+              </mat-select>
+              <mat-error *ngIf="predictionForm.get('gender')?.hasError('required')">
+                Gender is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="form-row">
+            <!-- Blood Glucose -->
+            <mat-form-field appearance="outline">
+              <mat-label>Blood Glucose Level (mg/dL)</mat-label>
+              <input matInput type="number" formControlName="bloodGlucose">
+              <mat-hint>Fasting blood sugar level</mat-hint>
+              <mat-error *ngIf="predictionForm.get('bloodGlucose')?.hasError('required')">
+                Blood glucose level is required
+              </mat-error>
+            </mat-form-field>
+  
+            <!-- Blood Pressure -->
+            <mat-form-field appearance="outline">
+              <mat-label>Blood Pressure (mm Hg)</mat-label>
+              <input matInput type="number" formControlName="bloodPressure">
+              <mat-hint>Systolic blood pressure</mat-hint>
+              <mat-error *ngIf="predictionForm.get('bloodPressure')?.hasError('required')">
+                Blood pressure is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="form-row">
+            <!-- BMI -->
+            <mat-form-field appearance="outline">
+              <mat-label>BMI (kg/m²)</mat-label>
+              <input matInput type="number" formControlName="bmi">
+              <mat-hint>Body Mass Index</mat-hint>
+              <mat-error *ngIf="predictionForm.get('bmi')?.hasError('required')">
+                BMI is required
+              </mat-error>
+            </mat-form-field>
+  
+            <!-- Insulin -->
+            <mat-form-field appearance="outline">
+              <mat-label>Insulin Level (mu U/ml)</mat-label>
+              <input matInput type="number" formControlName="insulin">
+              <mat-error *ngIf="predictionForm.get('insulin')?.hasError('required')">
+                Insulin level is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="form-row">
+            <!-- Pregnancies -->
+            <mat-form-field appearance="outline">
+              <mat-label>Number of Pregnancies</mat-label>
+              <input matInput type="number" formControlName="pregnancies">
+              <mat-error *ngIf="predictionForm.get('pregnancies')?.hasError('required')">
+                Number of pregnancies is required
+              </mat-error>
+            </mat-form-field>
+  
+            <!-- Skin Thickness -->
+            <mat-form-field appearance="outline">
+              <mat-label>Skin Thickness (mm)</mat-label>
+              <input matInput type="number" formControlName="skinThickness">
+              <mat-error *ngIf="predictionForm.get('skinThickness')?.hasError('required')">
+                Skin thickness is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <!-- Diabetes Pedigree -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Diabetes Pedigree Function</mat-label>
+            <input matInput type="number" formControlName="diabetesPedigree">
+            <mat-hint>Diabetes mellitus family history score</mat-hint>
+            <mat-error *ngIf="predictionForm.get('diabetesPedigree')?.hasError('required')">
+              Diabetes pedigree is required
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Action Buttons -->
+          <div class="button-row">
+            <button mat-stroked-button type="button" (click)="resetForm()">
+              Reset
+            </button>
+            <button mat-flat-button color="primary" type="submit" 
+                    [disabled]="predictionForm.invalid || loading">
+              <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+              <span *ngIf="!loading">Predict Risk</span>
+            </button>
+          </div>
+        </form>
+  
+        <!-- Results Section -->
+        <div class="results-section" *ngIf="result">
+          <mat-divider></mat-divider>
+          <h3>Prediction Results</h3>
+          <div class="result-card" [ngClass]="result.risk.toLowerCase()">
+            <div class="result-header">
+              Risk Level: {{result.risk}}
+            </div>
+            <div class="result-content">
+              Probability: {{result.probability | percent}}
+            </div>
+            <div class="result-footer">
+              <mat-icon>info</mat-icon>
+              Please consult with a healthcare professional for accurate diagnosis.
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

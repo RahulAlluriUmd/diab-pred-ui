@@ -20,7 +20,20 @@ export class AppComponent implements OnInit, OnDestroy {
   showModeratorBoard = false;
   username?: string;
 
-  constructor(private authService: AuthService, private userService: UserService) { }
+  is_user_loggedIn = false;
+
+  constructor(private authService: AuthService, private userService: UserService) {
+
+    this.authService.isLoggedIn$.subscribe(value => {
+
+      if (value != null) {
+        this.isLoggedIn = true;
+        this.username = value.email
+      }
+      
+    })
+
+   }
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
@@ -37,21 +50,22 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.authService.logout().subscribe({
-      next: res => {
-        console.log(res);
-        // this.authService.clean();
+    this.authService.removeItem(this.username)
+    // this.authService.logout().subscribe({
+    //   next: res => {
+    //     console.log(res);
+    //     // this.authService.clean();
 
-        window.location.reload();
-      },
-      error: err => {
-        console.log(err);
-      }
-    });
+    //     window.location.reload();
+    //   },
+    //   error: err => {
+    //     console.log(err);
+    //   }
+    // });
   }
 
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    this.authService.isLoggedInSubject.unsubscribe()
   }
 
 }
