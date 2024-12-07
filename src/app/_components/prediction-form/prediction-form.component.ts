@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-prediction-form',
@@ -37,7 +38,7 @@ export class PredictionFormComponent implements OnInit {
   loading = false;
   result: any = null;
   
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
     this.predictionForm = this.fb.group({
       age: ['', [Validators.required, Validators.min(1), Validators.max(120)]],
       gender: ['', Validators.required],
@@ -59,13 +60,35 @@ export class PredictionFormComponent implements OnInit {
       this.loading = true;
       // Simulate API call
       console.log(this.predictionForm)
-      setTimeout(() => {
-        this.result = {
-          probability: 0.75,
-          risk: 'High'
-        };
-        this.loading = false;
-      }, 1500);
+      var data = {
+        'age': this.predictionForm.value.age,
+        'bloodGlucose': this.predictionForm.value.bloodGlucose,
+        'bloodPressure': this.predictionForm.value.bloodPressure,
+        'bmi': this.predictionForm.value.bmi,
+        'diabetesPedigree': this.predictionForm.value.diabetesPedigree,
+        'gender': this.predictionForm.value.gender,
+        'insulin': this.predictionForm.value.insulin,
+        'pregnancies': this.predictionForm.value.pregnancies,
+        'skinThickness': this.predictionForm.value.skinThickness
+      }
+      var response = this.userService.predictUser(data)
+      console.log(response)
+
+      // .subscribe((res: any) => {
+      //   this.result = {
+      //     probability: res['probability'],
+      //     risk: res['High']
+      //   };
+
+      //   this.loading = false;
+      // })
+      // setTimeout(() => {
+      //   this.result = {
+      //     probability: 0.75,
+      //     risk: 'High'
+      //   };
+      //   this.loading = false;
+      // }, 1500);
     }
   }
 
