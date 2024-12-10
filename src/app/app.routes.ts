@@ -23,5 +23,8 @@ export const routes: Routes = [
     // },
     {
         path: 'predictionForm', component: PredictionFormComponent, canActivate: []
-    }
+    },
+    { 
+        path: '**', redirectTo: '/login' 
+    } 
 ];
