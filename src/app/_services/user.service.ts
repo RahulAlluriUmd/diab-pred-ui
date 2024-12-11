@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 const apiUri = 'https://afv5apuz95.execute-api.us-east-1.amazonaws.com/predicts-diabetecs-initial-version/predictdiabetecs';
 
@@ -31,13 +31,14 @@ export class UserService {
     console.log(data)
   }
 
-  predictUser(data:any) {
+  predictUser(data:any): Observable<any> {
     console.log(JSON.stringify({data: [data]}))
-    return this._client.post(apiUri, JSON.stringify({data: [data]}), {responseType:'text'}).subscribe((res:any) => {
-      // debugger
-      let response = JSON.parse(res);
-      return response.body;
-    })
+    return this._client.post(apiUri, JSON.stringify({data: [data]}), {responseType:'text'})
+    // .pipe(map(res:any) => {
+    //   // debugger
+    //   let response = JSON.parse(res);
+    //   return response.body;
+    // })
     // return this._client.get(apiUri, {responseType:'text'});
   }
 
