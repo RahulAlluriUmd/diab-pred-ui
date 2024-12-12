@@ -58,7 +58,14 @@ export class AuthService {
   }
 
   getItem(key: string){
-    return JSON.parse(localStorage.getItem(key) ?? '')
+    let item = localStorage.getItem(key)
+    if (item != null) {
+      return JSON.parse(item)
+    }
+    else{
+      return ''
+    }
+    // return JSON.parse(localStorage.getItem(key) ?? '')
   }
 
   public isLoggedIn(): boolean {

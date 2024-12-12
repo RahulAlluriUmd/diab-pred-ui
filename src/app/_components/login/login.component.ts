@@ -84,12 +84,16 @@ export class LoginComponent {
           }, 1500);
         }
         else {
+          this.loading = false
           this.invalidPassword = true;
           this.openDialog()
         }
       }
       else {
+        this.loading = false;
         this.unknownUser = true;
+        this.invalidPassword = true;
+        this.openDialog()
       }
       
     }
