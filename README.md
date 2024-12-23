@@ -1,6 +1,7 @@
 # DiabPredUi
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
+This project acts as an front-end repo for the course Fall 2024 ECE-528 Cloud Computing project.
 
 ## Development server
 
@@ -25,3 +26,19 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## Juper Notebook
+The system is deployed on AWS SageMaker, where it executes core machine learning predictions efficiently. We have chosen the XGBoost model due to its impressive performance metrics, achieving an accuracy rate of 85% and a recall rate of 80%. XGBoost is an advanced gradient-boosting framework known for its speed and accuracy, making it well-suited for handling complex datasets. By leveraging this model, we aim to enhance the predictive capabilities of our application, ensuring reliable and accurate outcomes for our users.
+
+Complete details about the model training and endpoint creation can be found in the [Jupyter Notebook][02]
+
+## Lambda Functions
+- Executes and manages requests for making predictions based on input data.  
+- Oversees the transformation and preparation of data to ensure it meets the required format for analysis.  
+- Establishes and maintains communication with the SageMaker endpoint to facilitate seamless data processing and model deployment.
+- Entire lambda function can be accessed from [here][01]
+
+
+[01]: ./ext_files/invoke-api-diabetics-prediction-model.py
+[02]: ./ext_files/Diabetes_prediction.ipynb
