@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
-const apiUri = 'https://afv5apuz95.execute-api.us-east-1.amazonaws.com/predicts-diabetecs-initial-version/predictdiabetecs';
+const apiUri = '';
 
 @Injectable({
   providedIn: 'root'
